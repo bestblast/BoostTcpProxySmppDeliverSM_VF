@@ -117,13 +117,18 @@ namespace tcp_proxy
                            }
 
 
-                           if (short_message_str.find("sub:") == std::string::npos)  // NO "sub:" IN short_message
-                           {
+                           //if (short_message_str.find("sub:") == std::string::npos)  // NO "sub:" IN short_message
+                           //{
                                // Add "sub:001 dlvrd:001 " after first space
-                               int pos = short_message_str.find(" ");
-                               short_message_str.insert(pos,std::string(" sub:001 dlvrd:001"));
+                           //    int pos = short_message_str.find(" ");
+                           //    short_message_str.insert(pos,std::string(" sub:001 dlvrd:001"));
 
-                           }
+                           //}
+                            int pos = short_message_str.find(" ");
+                            char buffer[20];
+                            sprintf(buffer, "%x", stoi(short_message_str.substr(3,pos - 3)));
+                            short_message_str = "id:" + std::string(buffer) + short_message_str.substr(pos) + " text:...";
+
                             short_message_str = short_message_str.substr(0,159);
                             pdu_DeliverSm.short_message(reinterpret_cast<const Smpp::Uint8 *>(short_message_str.c_str()), short_message_str.length());
                             memcpy(upstream_data_copy_,pdu_DeliverSm.encode(),pdu_DeliverSm.command_length());
