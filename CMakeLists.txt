@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -fpermissive")
 
 #find_package( Boost COMPONENTS system thread REQUIRED )
 include_directories( ${Boost_INCLUDE_DIRS} )
-include_directories( /home/a.volobuev/smpp_deliver_sm_fixer/boost_1_84_0/ )
+include_directories( ../boost_1_84_0/ )
 include_directories( ./ )
 
 
